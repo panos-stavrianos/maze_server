@@ -32,7 +32,7 @@ def config():
 
 @app.route("/")
 def home():
-    return "This is a http server for the maze experiment"
+    return "This is a http server for the maze experiment!"
 
 
 @app.route("/agent_ready")
