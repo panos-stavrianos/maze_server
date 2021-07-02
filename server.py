@@ -24,6 +24,7 @@ def message_by(queue: Queue, data: dict):
 def config():
     global config_data
     if request.method == 'GET':
+        print(config_data)
         return config_data
     if request.method == 'POST':
         config_data = request.json
@@ -32,7 +33,7 @@ def config():
 
 @app.route("/")
 def home():
-    return "This is a http server for the maze experiment!"
+    return "This is a http server for the maze experiment!!!"
 
 
 @app.route("/agent_ready")
