@@ -6,7 +6,7 @@ RUN mkdir -p /usr/app-data
 
 COPY requirements.txt /usr/src/app/requirements.txt
 WORKDIR /usr/src/app
-RUN --mount=type=cache,target=/root/.cache/pip pip install -r requirements.txt
+RUN pip install -r requirements.txt
 
 COPY ./ /usr/src/app
 
