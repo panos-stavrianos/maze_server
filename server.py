@@ -10,7 +10,7 @@ player = Queue(maxsize=1)
 app = Flask(__name__)
 CORS(app)
 config_data = None
-timeout = env('TIMEOUT', .5)
+timeout = env('TIMEOUT', 1)
 
 
 def message_by(queue: Queue, data: dict):
