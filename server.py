@@ -10,7 +10,7 @@ player = Queue(maxsize=1)
 app = Flask(__name__)
 CORS(app)
 config_data = None
-timeout = env('TIMEOUT', 5)
+timeout = env('TIMEOUT', .5)
 
 
 def message_by(queue: Queue, data: dict):
@@ -39,14 +39,14 @@ def home():
 @app.route("/agent_ready")
 def agent_ready():
     """Initiate by agent"""
-    #      print('agent->agent_ready')
+    print('agent->agent_ready')
     return assert_player_command(player.get(timeout=timeout), 'player_ready')
 
 
 @app.route("/player_ready")
 def player_ready():
     """Initiate by player"""
-    #      print('player->player_ready')
+    print('player->player_ready')
     message_by(player, {'command': 'player_ready'})
     return agent.get(timeout=timeout)
 
@@ -70,7 +70,7 @@ def reset_done():
 @app.route("/step", methods=["POST"])
 def step():
     """Initiate by agent"""
-    # #      print('agent->step')
+    print('agent->step')
     message_by(agent, {'command': 'step', "step_request": request.json})
     return assert_player_command(player.get(timeout=timeout), 'step')
 
