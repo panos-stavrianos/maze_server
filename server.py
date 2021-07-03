@@ -1,3 +1,5 @@
+import time
+
 from flask import Flask, request
 from queue import Queue
 from flask_cors import CORS
@@ -10,7 +12,7 @@ player = Queue(maxsize=1)
 app = Flask(__name__)
 CORS(app)
 config_data = None
-timeout = env('TIMEOUT', 1)
+timeout = env('TIMEOUT', 10)
 
 
 def message_by(queue: Queue, data: dict):
@@ -70,7 +72,6 @@ def reset_done():
 @app.route("/step", methods=["POST"])
 def step():
     """Initiate by agent"""
-    print('agent->step')
     message_by(agent, {'command': 'step', "step_request": request.json})
     return assert_player_command(player.get(timeout=timeout), 'step')
 
@@ -78,9 +79,12 @@ def step():
 @app.route("/observation", methods=["POST"])
 def observation():
     """Initiate by player"""
-    # #      print('player->observation')
+    print('player->observation')
     message_by(player, request.json)
-    return agent.get(timeout=timeout)
+    start = time.time()
+    res = agent.get(timeout=timeout)
+    print(time.time() - start)
+    return res
 
 
 @app.route("/training", methods=["POST"])
@@ -96,6 +100,14 @@ def assert_player_command(res, command):
         return res
     # print("ERROR COMMAND", res, command)
     return player.get(timeout=timeout)
+
+
+@app.route("/finished")
+def finished():
+    """Initiate by agent"""
+    print('agent->finished')
+    message_by(agent, {'command': 'finished'})
+    return {"OK": 'OK'}
 
 
 if __name__ == "__main__":
