@@ -13,7 +13,7 @@ app = Flask(__name__)
 CORS(app)
 config_data = None
 timeout = env('TIMEOUT', 10)
-server_host = env('TIMEOUT', "https://maze-server.app.orbitsystems.gr")
+server_host = env('HOST', "https://maze-server.app.orbitsystems.gr")
 
 
 def message_by(queue: Queue, data: dict):
