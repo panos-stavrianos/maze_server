@@ -13,6 +13,7 @@ app = Flask(__name__)
 CORS(app)
 config_data = None
 timeout = env('TIMEOUT', 10)
+server_host = env('TIMEOUT', "https://maze-server.app.orbitsystems.gr")
 
 
 def message_by(queue: Queue, data: dict):
@@ -20,6 +21,11 @@ def message_by(queue: Queue, data: dict):
         queue.get()
         # print(f"replacing {removed} with {data}")
     queue.put(data)
+
+
+@app.route("/env_variables")
+def env_variables():
+    return {"host": server_host}
 
 
 @app.route("/config", methods=["POST", "GET"])
