@@ -23,6 +23,13 @@ def message_by(queue: Queue, data: dict):
     queue.put(data)
 
 
+@app.route("/set_server_host/<host>")
+def set_server_host(host):
+    global server_host
+    server_host = host
+    return {"OK": 'OK'}
+
+
 @app.route("/env_variables")
 def env_variables():
     return {"host": server_host}
