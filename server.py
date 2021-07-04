@@ -23,10 +23,10 @@ def message_by(queue: Queue, data: dict):
     queue.put(data)
 
 
-@app.route("/set_server_host/<host>")
-def set_server_host(host):
+@app.route("/set_server_host", methods=["POST"])
+def set_server_host():
     global server_host
-    server_host = host
+    server_host = request.json['server_host']
     return {"OK": 'OK'}
 
 
