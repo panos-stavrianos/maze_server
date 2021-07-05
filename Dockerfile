@@ -13,6 +13,6 @@ EXPOSE 5050
 
 CMD gunicorn server:app
 
-# DOCKER_BUILDKIT=1 docker build -t comet.app.orbitsystems.gr/maze_http_server:1.0.3 .
+# docker build -t comet.app.orbitsystems.gr/maze_http_server:1.0.3 .
 # docker run -d -p "8080:5050" comet.app.orbitsystems.gr/maze_http_server:1.0.3
 # docker push comet.app.orbitsystems.gr/maze_http_server:1.0.3
